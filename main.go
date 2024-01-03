@@ -4,14 +4,15 @@ import (
     "bytes"
     "io/ioutil"
     "log"
+    "net"
     "net/http"
     "os"
 )
 
 // Config 结构体用于存储配置信息
 type Config struct {
-    ForwardURL    string
-    ListenPort    string
+    ForwardURL     string
+    ListenPort     string
     AccessPassword string
 }
 
@@ -23,10 +24,17 @@ func main() {
     config.ListenPort = getEnv("LISTEN_PORT", "5999")
     config.AccessPassword = getEnv("ACCESS_PASSWORD", "wechat5999")
 
+    // 检查端口是否已被占用
+    ln, err := net.Listen("tcp", ":"+config.ListenPort)
+    if err != nil {
+        log.Fatalf("无法监听端口 %s: %v", config.ListenPort, err)
+    }
+    defer ln.Close()
+
     // 设置HTTP服务器监听的端口
     http.HandleFunc("/", handler)
     log.Println("服务器启动，监听端口：" + config.ListenPort)
-    log.Fatal(http.ListenAndServe(":"+config.ListenPort, nil))
+    log.Fatal(http.Serve(ln, nil)) // 使用ln作为监听器
 }
 
 // getEnv 从环境变量中获取值，如果未设置则返回默认值
