@@ -1,0 +1,10 @@
+http端口转发
+
+使用环境变量设置参数
+export FORWARD_URL="http://127.0.0.1:19088"
+export LISTEN_PORT="5999"
+export ACCESS_PASSWORD="wechat5999"
+
+
+测试
+curl -X POST -d '{"wxid": "imsamu","msg": "我是test"}' 'http://localhost:5999/api/?type=2&password=wechat5999' -H "Content-Type: application/json"
