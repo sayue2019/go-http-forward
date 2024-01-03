@@ -1,4 +1,10 @@
-http端口转发
+http端口转发工具，在docker的wine中封装了一个wechat的服务，方便为端口加上访问权限
+
+编译win x86版
+GOOS=windows GOARCH=386 go build -o http_forwarder.exe
+
+在docker的wine中运行使用
+wine /path/http_forwarder.exe &
 
 使用环境变量设置参数
 export FORWARD_URL="http://127.0.0.1:19088"
