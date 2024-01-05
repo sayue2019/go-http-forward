@@ -13,4 +13,4 @@ export ACCESS_PASSWORD="wechat5999"
 
 
 测试
-curl -X POST -d '{"wxid": "imsamu","msg": "我是test"}' 'http://localhost:5999/api/?type=2&password=wechat5999' -H "Content-Type: application/json"
+curl -X POST -d '{"wxid": "filehelper","msg": "我是test"}' 'http://localhost:5999/api/?type=2&password=wechat5999' -H "Content-Type: application/json"
